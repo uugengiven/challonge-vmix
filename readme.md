@@ -2,14 +2,11 @@
 
 This is a small shim to gather challonge API data in a single call, rather than two separate calls (one for the matches of a tournament, one for the participants). This will be used by vMix as a datasource so participants can be listed properly on screen.
 
-This does not actually fully function yet, web hosting isn't enabled or an endpoint to spit out the json. This was a quick test to verify that the object creation is correct before adding hosting.
+This is still untested in vMix itself, but now flattens the matches some and updates players names so they exist. If other info must be added/stripped, it should be easy to do. Guess we'll see in vmix.
 
-### Todo
+Don't forget to update your .env file to include the needful.
 
-Add a web hosting solution that will accept in a tournament id so this can spit out the right info
-
-Possibly flatten the info some so vmix can get at it better (matches are an array of object with all info in the match object like this)
-
+How Challonge sends matches
 ```
 [
     {match: ...matchinfo},
@@ -18,7 +15,7 @@ Possibly flatten the info some so vmix can get at it better (matches are an arra
 ]
 ```
 
-Preferably, it will look more like this when done
+How this shim sends matches
 ```
 [
     {

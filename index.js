@@ -1,7 +1,10 @@
 const axios = require('axios')
-const dotenv = require('dotenv');
-dotenv.config();
+const dotenv = require('dotenv')
+var http = require('http')
 
+dotenv.config()
+
+const port = process.env.PORT
 const tournament = 'replayfx20190531'
 const username = process.env.CH_USERNAME
 const api_key = process.env.CH_API_KEY
@@ -15,26 +18,31 @@ let users = []
 console.log(username)
 console.log(api_key)
 
-const start = async () => {
+const start = async (req, res) => {
     const matches_res = await axios.get(match_api)
     const matches = matches_res.data
 
     const users_res = await axios.get(user_api)
     users = users_res.data
     
-    for(let i = 0; i < matches.length; i++)
-    {
-        matches[i].match.player1_name = get_name(matches[i].match.player1_id)
-        matches[i].match.player2_name = get_name(matches[i].match.player2_id)
-    }
+    const results = matches.map(row => {
+        row.match.player1_name = get_name(row.match.player1_id)
+        row.match.player2_name = get_name(row.match.player2_id)
+        return row.match
+    })
 
-    console.log(matches)
+    res.end(JSON.stringify(results))
 }
 
 const get_name = id => {
     const participant = users.find(x => x.participant.id === id)
-    console.log(participant)
     return participant.participant.name
 }
 
-start();
+http.createServer(start).listen(port, (err) => {
+    if (err) {
+        return console.log("POOP", err)
+    }
+    
+    console.log(`Listening on ${port}`)
+})
