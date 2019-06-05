@@ -5,13 +5,10 @@ var http = require('http')
 dotenv.config()
 
 const port = process.env.PORT
-const tournament = 'replayfx20190531'
 const username = process.env.CH_USERNAME
 const api_key = process.env.CH_API_KEY
-const api = `https://${username}:${api_key}@api.challonge.com/v1/tournaments/${tournament}`
+const api = `https://${username}:${api_key}@api.challonge.com/v1/tournaments`
 
-const match_api = `${api}/matches.json`
-const user_api = `${api}/participants.json`
 
 let users = []
 
@@ -19,6 +16,14 @@ console.log(username)
 console.log(api_key)
 
 const start = async (req, res) => {
+    const full_api = `${api}${req.url}`
+    if(req.url === '/favicon.ico')
+    {
+        return res.end('stop it')
+    }
+    const match_api = `${full_api}/matches.json`
+    const user_api = `${full_api}/participants.json`
+
     const matches_res = await axios.get(match_api)
     const matches = matches_res.data
 
@@ -31,6 +36,7 @@ const start = async (req, res) => {
         return row.match
     })
 
+        
     res.end(JSON.stringify(results))
 }
 
