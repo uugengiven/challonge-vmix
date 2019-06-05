@@ -1,0 +1,15 @@
+{
+  "name": "challonge-vmix-integration",
+  "version": "1.0.0",
+  "description": "Grab a challonge tournament and show it in a way vmix can handle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.0.0"
+  }
+}
