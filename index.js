@@ -33,6 +33,7 @@ const start = async (req, res) => {
     const results = matches.map(row => {
         row.match.player1_name = get_name(row.match.player1_id)
         row.match.player2_name = get_name(row.match.player2_id)
+        row.match.image = 'https://cdnb.artstation.com/p/assets/covers/images/003/394/541/large/marine-coiffard-kiwi-marine-coiffard.jpg?1473241591'
         return row.match
     })
 
