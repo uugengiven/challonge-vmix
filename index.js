@@ -3,12 +3,16 @@ const dotenv = require('dotenv')
 var http = require('http')
 
 const teams = [
-    {name: "toliet paper boys", img: "toiletpaper.jpg" },
+    {name: "The Salt Shakers", img: "saltshakers.png" },
     {name: "FGIF", img: "fgif.png" },
-    {name: "Waste Management", img: "wastemanagement.jpg" },
-    {name: "Fricc", img: "fricc.jpg" },
-    {name: "Northern Lights", img: "nl.png" },
-    {name: "Viable", img: "viable.png"}
+    {name: "Northern Lights", img: "northern.png" },
+    {name: "#breathe", img: "breathe.png"},
+    {name: "Culpable Gaming", img: "culpable.jpg"},
+    {name: "exc!tement", img: "excitement.png"},
+    {name: "Clurd Nern ErSpurts", img: "Clurd_Nern_Logo.png"},
+    {name: "Ronin Gold", img: "ronin.png.png"},
+    {name: "Team Worm", img: "Team Worm.png"},
+    {name: "Aeronautics", img: "aeronautics.jpeg"}
 ]
 
 dotenv.config()
@@ -42,10 +46,12 @@ const start = async (req, res) => {
     const results = matches.map(row => {
         row.match.player1_win_1 = "c://rllogo//empty pip.png"
         row.match.player1_win_2 = "c://rllogo//empty pip.png"
-        row.match.player1_win_3 = "c://rllogo//empty pip.png"
+        row.match.player1_win_3 = "c://rllogo//empty pip.png"        
+        row.match.player1_win_4 = "c://rllogo//empty pip.png"
         row.match.player2_win_1 = "c://rllogo//empty pip.png"
         row.match.player2_win_2 = "c://rllogo//empty pip.png"
         row.match.player2_win_3 = "c://rllogo//empty pip.png"
+        row.match.player2_win_4 = "c://rllogo//empty pip.png"
 
         if(row.match.scores_csv != "")
         {
