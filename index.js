@@ -12,7 +12,8 @@ const teams = [
     {name: "Clurd Nern ErSpurts", img: "Clurd_Nern_Logo.png"},
     {name: "Ronin Gold", img: "ronin.png.png"},
     {name: "Team Worm", img: "Team Worm.png"},
-    {name: "Aeronautics", img: "aeronautics.jpeg"}
+    {name: "Aeronautics", img: "aeronautics.jpeg"},
+    {name: "h2no", img: "h2no.jpg"}
 ]
 
 dotenv.config()
@@ -21,6 +22,15 @@ const port = process.env.PORT
 const username = process.env.CH_USERNAME
 const api_key = process.env.CH_API_KEY
 const api = `https://${username}:${api_key}@api.challonge.com/v1/tournaments`
+const subdomain = process.env.CH_SUBDOMAIN
+
+const ch_wtf = {
+    "19076436": 164117103,
+    "19076439": 164117106,
+    "19076437": 164117104,
+    "19076438": 164117105,
+    "19076435": 164117102,
+}
 
 
 let users = []
@@ -30,6 +40,7 @@ console.log(api_key)
 
 const start = async (req, res) => {
     const full_api = `${api}${req.url}`
+    console.log(full_api);
     if(req.url === '/favicon.ico')
     {
         return res.end('stop it')
@@ -39,9 +50,11 @@ const start = async (req, res) => {
 
     const matches_res = await axios.get(match_api)
     const matches = matches_res.data
+    //console.log(matches)
 
     const users_res = await axios.get(user_api)
     users = users_res.data
+    //console.log(users)
     
     const results = matches.map(row => {
         row.match.player1_win_1 = "c://rllogo//empty pip.png"
@@ -93,7 +106,11 @@ const get_logo = name => {
 }
 
 const get_name = id => {
-    const participant = users.find(x => x.participant.id === id)
+    const participant = users.find(x => x.participant.id === id || x.participant.id === ch_wtf[id])
+    //console.log("id", id);
+    //console.log("eh", ch_wtf[id])
+    //console.log(users);
+    //console.log(participant);
     if(participant === null || participant === undefined)
     {
         return null
